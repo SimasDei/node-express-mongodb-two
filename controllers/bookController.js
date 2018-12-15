@@ -11,13 +11,18 @@ const Book = mongoose.model('Book');
 router.get('/', (req, res) => {
   // Remder the book view with the recieved data
   res.render('book/addOrEdit', {
-    viewTitle: 'Read or Update. C -R- -U- D'
+    viewTitle: 'Create! [-C-] R U D'
   });
 });
 
-// POST router
+// POST router, if Id already set, Update the Record
 router.post('/', (req, res) => {
-  insertRecord(req, res);
+  if (req.body._id === '') {
+    insertRecord(req, res);
+
+  } else {
+    updateRecord(req, res)
+  }
 });
 
 // Insert Request Data into the Database
@@ -51,6 +56,26 @@ function insertRecord (req, res) {
   });
 }
 
+// Update Selected Record
+function updateRecord(req, res) {
+  // Use mongoose method to find object, then update it
+  // With the new request data
+  Book.findOneAndUpdate({_id: req.body._id}, req.body, {new: true}, (err, doc => {
+    if (!err) {res.redirect('book/list')}
+    else {
+      if (err.name === 'ValidationError') {
+        handleValidationError(err, req.body)
+        res.render('book/addOrEdit', {
+          viewTitle: 'Update Book',
+          book: req.body
+        })
+      } else {
+        console.log('Error During Book Update' + err)
+      }
+    }
+  }));
+}
+
 // Validation Function
 function handleValidationError(err, body) {
   // inside the error object there are couple of properties
@@ -73,19 +98,34 @@ function handleValidationError(err, body) {
 // Get the List of Books and Route it
 router.get('/list', (req, res) => {
   //Use mongoDB Find method on the Book Schema
-  Book.find((err, docs) => {
+  Book.find((err, doc) => {
     // all records inside the docs object, if no errors,
     // render the list view
     if (!err) {
       res.render('book/list', {
-        list: docs
+        list: doc
       });
     } else {
       console.log('Error displaying the Book List ' + err)
     }
-
   });
 })
+
+// Retrieve a book by a specific Id whick is created by MongoDb
+router.get('/:id', (req, res) => {
+  Book.findById(req.param._id, (err, doc) => {
+    // Get id from request parameters, if no error. pass document
+    if (!err){
+    // Render view with passed data
+      res.render('book/addOrEdit', {
+        viewTitle: 'Edit Book Details',
+        book: doc
+      })
+    }
+  })
+})
+
+
 
 // Export the route from the controller
 module.exports = router;
