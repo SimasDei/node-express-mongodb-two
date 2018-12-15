@@ -1,0 +1,27 @@
+<h3>{{viewTitle}}</h3>
+
+<form action="/book"  method="post" autocomplete="off">
+  <div class="form-group">
+    <label>Book Title</label>
+    <input type="text" class="form-control" name="title" placeholder="Book Title" value="{{book.title}}">
+    <div class="danger" style="color: red;">{{book.titleError}}</div>
+  </div>
+  <div class="form-group">
+    <label>Book Author</label>
+    <input type="text" class="form-control" name="author" placeholder="Book Author" value="{{book.author}}" >
+    <div class="danger" style="color: red;">{{book.authorError}}</div>
+  </div>
+  <div class="form-group">
+    <label>Genre</label>
+    <input type="text" class="form-control" name="genre" placeholder="Genre" value="{{book.genre}}">
+  </div>
+  <div class="form-group">
+    <label>Cover Image</label>
+    <input type="text" class="form-control" name="imageUrl" placeholder="Cover Image Url" value="{{book.imageUrl}}">
+  </div>
+  <div class="form-group">
+    <button class="btn btn-info" type="submit">Submit <i class="fa fa-database"></i></button>
+    <a class="btn btn-primary" href="book/list">
+      View Books <i class="fa fa-list-alt"></i></a>
+  </div>
+</form>

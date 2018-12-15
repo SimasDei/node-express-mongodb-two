@@ -4,10 +4,12 @@ const mongoose = require('mongoose');
 // Give structure to the Book Document
 let bookSchema = new mongoose.Schema({
   title: {
-    type: String
+    type: String,
+    required: 'The title is required.'
   },
   author: {
-    type: String
+    type: String,
+    required: 'A book needs an Author.'
   },
   genre: {
     type: String
@@ -16,8 +18,8 @@ let bookSchema = new mongoose.Schema({
     type: String
   },
   date: {
-    type: String,
-    default: Date.now()
+    type: Date,
+    default: Date.now
   }
 });
 

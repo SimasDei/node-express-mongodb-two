@@ -1,0 +1,13 @@
+<h3 class="text-center mb-5">Book List <a href="/book" class="btn btn-secondary ml-5"><i class="fa fa-plus"></i>Add New</a></h3>
+{{#each list}}
+<div class="card mb-5 col-sm-6 offset-3 center" style="width: 18rem;">
+  <img class="card-img-top" src="{{this.imageUrl}}" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">{{this.title}}</h5>
+    <p class="card-text">A {{this.genre}} Genre Book
+    Written By: <strong>{{this.author}}</strong></p>
+  </div>
+  <a href="/" class="btn btn-warning">Edit</a>
+  <a href="/" class="btn btn-danger">Delete</a>
+</div>
+{{/each}}
