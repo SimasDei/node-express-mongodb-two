@@ -2,16 +2,18 @@
   "name": "basic-crud",
   "version": "1.0.0",
   "description": "CRUD Api with MongoDB",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
-    "start": "nodemon app.js",
+    "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
+    "mongodb": "^3.1.10",
     "mongoose": "^5.4.0",
-    "nodemon": "^1.18.9"
+    "nodemon": "^1.18.9",
+    "express-handlebars": "^3.0.0"
   },
   "author": "SimasDei",
   "license": "ISC"
